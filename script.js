@@ -13,7 +13,6 @@ const container = document.getElementById('world');
 const levelSpan = document.getElementById('level-span');
 const scoreDiv = document.getElementById('score-wrap');
 const scoreSpan = document.getElementById("score-span");
-const startBtn = document.getElementById('start-btn');
 const scoreBtn = document.getElementById('score-btn');
 const menuDiv = document.getElementById('menu-wrap');
 const lifesDiv = document.getElementById('lifes-wrap');
@@ -390,17 +389,18 @@ function drawLeaderBoard () {
 
 // установить обработчики событий
 const setlisteners = () => {
-
+    const startBtn = document.getElementById('start-btn');
     // кнопка 'Start the game'
-    document.getElementById('start-btn').addEventListener('click', () => {
+    startBtn.addEventListener('click', () => {
+        startBtn.disabled = 'true';
+        console.log(startBtn.disabled);
+
         if (!!isGameOver) {
             isGameOver = false;
             setTimeout(restart, 200)
         } else {
             setTimeout(startGame, 200);
-        }
-        menuDiv.classList.add('block-hide');
-        scoreDiv.classList.add('block-show'); 
+        };
     });
 
     // кнопка 'Show the leaderboard'
@@ -592,6 +592,8 @@ function startGame () {
     createPlayer();
     createInteractive('coin', coinGroup, Colors.gold);
     createInteractive('enemy', enemyGroup, Colors.red);
+    menuDiv.classList.add('block-hide');
+    scoreDiv.classList.add('block-show');
 
     document.addEventListener('mousemove', movePlayer);
     animate();
